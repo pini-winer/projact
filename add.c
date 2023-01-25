@@ -16,19 +16,19 @@ BST *max(BST *root)
     return max(root->right);
 }
 
-void delete(BST **root, Customers *customer)
+void delete(BST **root, Customers **customer)
 {
     if (*root == NULL)
     {
         return;
     }
 
-    if ((*root)->customer_pointer->id == customer->id)
+    if ((*root)->customer_pointer->id == (*customer)->id)
 
     {
         if ((*root)->left == NULL && (*root)->right == NULL)
         {
-            customer->debt+=(*root)->customer_pointer->debt;
+            (*customer)->debt+=(*root)->customer_pointer->debt;
             free(*root);
             *root = NULL;
         }
@@ -36,25 +36,25 @@ void delete(BST **root, Customers *customer)
         {
             BST *tmp = max((*root)->left);
             (*root)->customer_pointer = tmp->customer_pointer;
-            delete(&((*root)->left), customer);
+            delete(&((*root)->left), (&(*customer)));
         }
         else
         {
             BST *tmp = (*root)->left ? (*root)->left : (*root)->right;
-            customer->debt+=(*root)->customer_pointer->debt;
+            (*customer)->debt+= (*root)->customer_pointer->debt;
             free(*root);
             *root = tmp;
         }
     }
     else
     {
-        if ((*root)->customer_pointer->id > customer->id)
+        if ((*root)->customer_pointer->id > (*customer)->id)
         {
-            delete(&((*root)->left), customer);
+            delete(&((*root)->left), (&(*customer)));
         }
         else
         {
-            delete(&((*root)->right), customer);
+            delete(&((*root)->right), (&(*customer)));
         }
     }
 }
@@ -284,7 +284,7 @@ FILE *file = fopen("customers.txt", "a");
     if(x==2)
     {
         fprintf(file, "%s,%s,%d,%s,%d,%f\n", customer->first_name, customer->second_name, customer->id, customer->date, customer->phone, customer->debt);
-     delete(&trees[ID], customer);
+     delete(&trees[ID], &customer);
      delete_date(&trees[ID], customer);
      delete_dabt(&trees[ID], customer);
      insert_id_bst(&trees[ID], customer);
