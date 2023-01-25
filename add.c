@@ -291,7 +291,7 @@ FILE *file = fopen("customers.txt", "a");
         insert_debt_bst(&trees[DEBT], customer);
         insert_date_bst(&trees[DATE], customer);
     }
-    if(x == 1)
+    if(x == 0)
     {
         insert_id_bst(&trees[ID], customer);
         insert_debt_bst(&trees[DEBT], customer);
