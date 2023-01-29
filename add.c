@@ -229,9 +229,8 @@ FILE *file = fopen("customers.txt", "a");
     char phone[20]={0};
     char date[20]={0};
     char dept[20]={0};
-    char line[] = "first name=Moshe, second name=efddesky, id=123456979, phone=0544123456,date=3/4/2022, dept=-400";
 
-    i = parseLine(line, first_name, second_name, id, phone, date, dept);
+    i = parseLine(input, first_name, second_name, id, phone, date, dept);
     chack_data(first_name, second_name, id, phone, date, dept);
     if(i){
         return;
