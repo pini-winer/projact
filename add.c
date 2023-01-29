@@ -208,11 +208,12 @@ Customers *seve_add_data( char* first_name, char* second_name, char* id, char* p
     
     new->debt = atof(dept);
 
-    if (new->debt < 0) {
-    new->debt = abs(new->debt) * -1;
-} else if (new->debt > 0) {
+   if (new->debt < 0) {
+    new->debt = abs(new->debt);
+} else {
     new->debt = abs(new->debt) * -1;
 }
+
     return new;
 }
 
