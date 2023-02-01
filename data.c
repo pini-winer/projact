@@ -33,16 +33,7 @@ int compare_id(BST *root, Customers *customer)
     return 0;
 }
 
-void print_customer(Customers *customer)
-{
-    printf("First name: %s\n", customer->first_name);
-    printf("second name: %s\n", customer->second_name);
-    printf("date: %s\n", customer->date);
-    printf("ID: %d\n", customer->id);
-    printf("Phone: 0%d\n", customer->phone);
-    printf("Debt: %.2f\n", customer->debt);
-    puts("\n");
-}
+
 
 void show_bst(BST *root)
 {
@@ -98,9 +89,9 @@ Customers *seve_data(char *line)
     return new;
 }
 
-int read_file_to_bst(BST *trees[])
+int read_file_to_bst(BST *trees[], char *str )
 {
-    FILE *file = fopen("customers.txt", "r");
+    FILE *file = fopen(str, "r");
     char line[1000];
     Customers *customer = NULL;
 
@@ -118,7 +109,7 @@ int read_file_to_bst(BST *trees[])
               insert_second_name_bst(&trees[SECOND_NAME], customer);
         }
     }
-    show_bst_in_order(trees[DEBT]);
+    show_bst(trees[DEBT]);
 
     fclose(file);
     return 0;

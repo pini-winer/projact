@@ -3,8 +3,6 @@ main: main.o  data.o
 
 main.o: main.c
 	gcc -Wall -c main.c
-
-
 data.o: data.c
 	gcc -Wall -c data.c
 
@@ -13,7 +11,7 @@ trees.o: trees.c
 
 select.o: select.c
 	gcc -Wall -c select.c
-add.o: add.c
+add.o: add.c 
 	gcc -Wall -c add.c
 
 

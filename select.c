@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include "main.h"
 #include "data.h"
-#define MAX_LEN 100
+#include "trees.h"
 #define true 1
 #define false 0
 #define ARR_LEN(_arr) (sizeof(_arr) / sizeof(_arr[0]))
@@ -151,6 +151,8 @@ void find_debt(BST *root, int debt, int operator_to_check)
     find_debt(root->left, debt, operator_to_check);
     find_debt(root->right, debt, operator_to_check);
 }
+
+
 void find_id(BST *root, int id, int operator_to_check)
 {
     if (root == NULL)
@@ -180,6 +182,8 @@ void find_id(BST *root, int id, int operator_to_check)
     find_id(root->left, id, operator_to_check);
     find_id(root->right, id, operator_to_check);
 }
+
+
 void find_phone(BST *root, int phone, int operator_to_check)
 {
     if (root == NULL)
@@ -210,10 +214,40 @@ void find_phone(BST *root, int phone, int operator_to_check)
     find_phone(root->right, phone, operator_to_check);
 }
 
+void find_date(BST *root, int date, int operator_to_check)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+   
+   
+    if (operator_to_check == 0 && convert_date_to_int(root->customer_pointer->date) == date)
+    {
+        print_customer(root->customer_pointer);
+    }
+    if (operator_to_check == 1 && convert_date_to_int(root->customer_pointer->date) != date)
+    {
+        print_customer(root->customer_pointer);
+    }
+    if (operator_to_check == 2 && convert_date_to_int(root->customer_pointer->date) < date)
+    {
+        print_customer(root->customer_pointer);
+    }
+    if (operator_to_check == 3 && convert_date_to_int(root->customer_pointer->date) > date)
+    {
+        print_customer(root->customer_pointer);
+    }
+    
+    find_phone(root->left, date, operator_to_check);
+    find_phone(root->right, date, operator_to_check);
+}
 
 
 
-char check_input(char *input, char *category, char *sarch)
+
+char check_input(char *input, char *category, char *sarch, char *errors)
 {
     char operators[] = { '!', '=', '>', '<'};
     char first[MAX_LEN];
@@ -221,7 +255,7 @@ char check_input(char *input, char *category, char *sarch)
     char *operator;
     char new_operator;
 
-    printf("%s \n", input);
+    
     for (int i = 0; i < sizeof(operators); i++)
     {
         operator= strchr(input, operators[i]);
@@ -234,7 +268,9 @@ char check_input(char *input, char *category, char *sarch)
     }
     if (!operator)
     {
-        printf(" Invalid operator please try again\n");
+         char message[] = "Invalid operator please try again\n";
+         strcpy(errors, message);
+
         return new_operator;
     }
 
@@ -276,21 +312,20 @@ int char_to_int(char str[])
     return result;
 }
 
-int select_main(BST *trees[], char *input)
+int select_main(BST *trees[], char *input, char *errors)
 {
-    printf("%s \n", input);
 
-    // char input[150];
     char category[MAX_LEN] = {0};
     char sarch[MAX_LEN] = {0};
     char operator;
 
-    operator= check_input(input, category, sarch);
-    printf("category: %s\n", category);
-    printf("sarch: %s\n", sarch);
+    operator= check_input(input, category, sarch, errors);
+    
     if (!category)
     {
-        printf(" Invalid category please try again\n");
+        char message[] = "Invalid category please try again\n";
+         strcpy(errors, message);
+
 
         return 2;
     }
@@ -300,8 +335,8 @@ int select_main(BST *trees[], char *input)
     }
     if (!sarch)
     {
-        printf(" Invalid sarch filed please try again\n");
-
+         char message[] = "Invalid sarch filed please try again\n";
+         strcpy(errors, message);
         return 3;
     }
 
@@ -309,6 +344,7 @@ int select_main(BST *trees[], char *input)
     char operators[] = {'=', '!', '>', '<'};
 
     int num_form_char;
+          char message[300] = {0};
     int x = 0;
     for (int i = 0; i < ARR_LEN(category_menu); i++)
     {
@@ -369,8 +405,10 @@ int select_main(BST *trees[], char *input)
                 num_form_char = char_to_int(sarch);
                 if (num_form_char == -1)
                 {
-                    printf("%s its not a number please try again \n", sarch);
-                    return 1;
+                 
+                 sprintf(message, "%s its not a number please try again \n", sarch);
+                 strcpy(errors, message);
+                      return 1;
                 }
                 if (operator== operators[0])
                 {
@@ -398,7 +436,10 @@ int select_main(BST *trees[], char *input)
                 num_form_char = char_to_int(sarch);
                 if (num_form_char == -1)
                 {
-                    printf("%s its not a number please try again \n", sarch);
+                
+                 sprintf(message, "%s its not a number please try again \n", sarch);
+                 strcpy(errors, message);
+  
                     return 1;
                 }
                 
@@ -430,7 +471,9 @@ int select_main(BST *trees[], char *input)
                num_form_char = char_to_int(sarch);
                 if (num_form_char == -1)
                 {
-                    printf("%s its not a number please try again \n", sarch);
+                 sprintf(message, "%s its not a number please try again \n", sarch);
+                 strcpy(errors, message);
+  
                     return 1;
                 }
                 
@@ -457,20 +500,31 @@ int select_main(BST *trees[], char *input)
                 
             case 5:
                 // date
+               num_form_char = convert_date_to_int(sarch);
+                if (num_form_char == -1)
+                {
+                 sprintf(message, "%s its not a number please try again \n", sarch);
+                 strcpy(errors, message);
+                    return 1;
+                }
+                
+                
                 if (operator== operators[0])
                 {
 
-                    printf("%c\n", operator);
+                    find_date(trees[ID], num_form_char, 0);
                 }
                 if (operator== operators[1])
                 {
-                    printf("%c\n", operator);
+                   find_date(trees[ID], num_form_char, 1);
                 }
                 if (operator== operators[2])
                 {
+                    find_date(trees[ID], num_form_char, 2);
                 }
                 if (operator== operators[3])
                 {
+                    find_date(trees[ID], num_form_char, 3);
                 }
 
                 x = 1;
@@ -484,6 +538,8 @@ int select_main(BST *trees[], char *input)
         }
     }
     if (!x)
-        printf("%s it's not legal please try again\n", category);
+        sprintf(message, "%s it's not legal please try again\n", category);
+        strcpy(errors, message);
+
     return 0;
 }

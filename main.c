@@ -10,6 +10,17 @@
 
 #define ARR_LEN(_arr) (sizeof(_arr)/sizeof(_arr[0]))
 
+void print_customer(Customers *customer)
+{
+    printf("First name: %s\n", customer->first_name);
+    printf("second name: %s\n", customer->second_name);
+    printf("date: %s\n", customer->date);
+    printf("ID: %d\n", customer->id);
+    printf("Phone: 0%d\n", customer->phone);
+    printf("Debt: %.2f\n", customer->debt);
+    puts("\n");
+}
+
 void help(const char *menu[], int len)
 {
     printf("Options: ");
@@ -51,13 +62,20 @@ void free_tree(BST *trees[], int num) {
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    if (argc < 2) {
+        return 1;
+    }
+
+    char* str = argv[1];
+    
+    
      const char *menu[] = {"set", "select", "print", "quit"};
-    char input[150];
-    char input_choise[350];
-    char *input_to_sent;
-    int num;        
+    char input[MAX_LEN];
+    char errors[MAX_LEN]={0};
+    char input_choise[MAX_LEN];
+    char *input_to_sent;       
     int i;
     BST *id_tree=NULL;
     BST *debt_tree=NULL;
@@ -65,11 +83,13 @@ int main()
     BST *phone_tree=NULL;
     BST *first_name_tree=NULL;
     BST *second_name_tree=NULL;
-
+    
+    
+    
     BST *trees[] = {id_tree, debt_tree,  date_tree, phone_tree, first_name_tree, second_name_tree};
 
     
-    read_file_to_bst(trees);
+    read_file_to_bst(trees, str);
     
     
     while (1)
@@ -96,11 +116,11 @@ int main()
                 {
                     case 0: 
                     // add
-                   add_main(trees, input);           
+                   add_main(trees, input, errors, str);           
                    break;
                     case 1:
                     // select
-                        select_main(trees, input_to_sent);
+                        select_main(trees, input_to_sent, errors);
                         break;
                     case 2:
                     // print
@@ -117,7 +137,10 @@ int main()
                 break;
             }
         }
+         
+           printf("%s", errors); 
 
+                
         if (i == ARR_LEN(menu))
         {
             printf("Error! No such option. ");
@@ -125,7 +148,7 @@ int main()
     }
 
 exit:
-    // free tree
+    
     free_tree(trees, ARR_LEN(trees));
     return 0;
 }
