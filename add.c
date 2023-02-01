@@ -269,9 +269,8 @@ void add_main(BST *trees[], char *input, char *errors, char *str)
     char phone[20] = {0};
     char date[20] = {0};
     char dept[20] = {0};
-    char line[] = "first name=Moshe, second nage=efddesky, id=123456789, phone=0544123456,date=3/4/2022, dept=-400";
 
-    i = parseLine(line, first_name, second_name, id, phone, date, dept, errors);
+    i = parseLine(input, first_name, second_name, id, phone, date, dept, errors);
     if (i)
     {
         return;
