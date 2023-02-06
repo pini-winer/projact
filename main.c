@@ -58,7 +58,6 @@ void free_tree(BST *trees[], int num) {
     free_pointer_Recursion(trees[ID]);
     for (int i = 0; i < num; i++) {
         free_tree_Recursion(trees[i]);
-        free(trees[i]);
     }
 }
 
