@@ -5,7 +5,7 @@
 
 int read_file_to_bst();
 
-void show_bst_in_order(BST *root);
+void show_bst_in_order(BST *root, int new_sock);
 
 
 #endif 

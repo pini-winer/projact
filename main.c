@@ -10,7 +10,7 @@
 
 #define ARR_LEN(_arr) (sizeof(_arr)/sizeof(_arr[0]))
 
-void print_customer(Customers *customer)
+void print_customer(Customers *customer ,int new_sock)
 {
     printf("First name: %s\n", customer->first_name);
     printf("second name: %s\n", customer->second_name);
@@ -58,6 +58,7 @@ void free_tree(BST *trees[], int num) {
     free_pointer_Recursion(trees[ID]);
     for (int i = 0; i < num; i++) {
         free_tree_Recursion(trees[i]);
+        free(trees[i]);
     }
 }
 
@@ -74,7 +75,8 @@ int main(int argc, char *argv[])
     char input[MAX_LEN];
     char errors[MAX_LEN]={0};
     char input_choise[MAX_LEN];
-    char *input_to_sent;       
+    char *input_to_sent;
+    int new_sock = 0;
     int i;
     BST *id_tree=NULL;
     BST *debt_tree=NULL;
@@ -115,15 +117,15 @@ int main(int argc, char *argv[])
                 {
                     case 0: 
                     // add
-                   add_main(trees, input, errors, str);           
+                   add_main(trees, input, errors, str, new_sock);           
                    break;
                     case 1:
                     // select
-                        select_main(trees, input_to_sent, errors);
+                        select_main(trees, input_to_sent, errors, new_sock);
                         break;
                     case 2:
                     // print
-                        show_bst_in_order(trees[DEBT]);
+                        show_bst_in_order(trees[DEBT], new_sock);
                         break;
                     case 3:
                         // quit 

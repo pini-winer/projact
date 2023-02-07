@@ -163,7 +163,7 @@ int parseLine(char *input, char *first_name, char *second_name, char *id, char *
         else
         {
             char message[90] = {0};
-            sprintf(message, "Error: Invalid format in: %s\n", token);
+            sprintf(message, "Error: Invalid format in:1 %s\n", token);
             strcpy(errors, message);
 
             return 1;
@@ -256,13 +256,12 @@ Customers *seve_add_data(char *first_name, char *second_name, char *id, char *ph
     return new;
 }
 
-void add_main(BST *trees[], char *input, char *errors, char *str)
+void add_main(BST *trees[], char *input, char *errors, char *str ,int new_sock)
 {
     int i;
     int x;
     FILE *file = fopen(str, "a");
     Customers *customer = NULL;
-    Customers *temp_customer_pointer = NULL;
     char first_name[30] = {0};
     char second_name[30] = {0};
     char id[20] = {0};
@@ -286,6 +285,9 @@ void add_main(BST *trees[], char *input, char *errors, char *str)
         delete_dabt(&trees[DATE], customer);
         insert_debt_bst(&trees[DEBT], customer);
         insert_date_bst(&trees[DATE], customer);
+        puts("add work");
+        print_customer(customer,new_sock);
+
         free(customer);
     }
     if (x == 0)
@@ -297,7 +299,8 @@ void add_main(BST *trees[], char *input, char *errors, char *str)
         insert_first_name_bst(&trees[FIRST_NAME], customer);
         insert_second_name_bst(&trees[SECOND_NAME], customer);
         fprintf(file, "%s,%s,%d,%s,%d,%f\n", customer->first_name, customer->second_name, customer->id, customer->date, customer->phone, customer->debt);
+        puts("add work");
+        print_customer(customer,new_sock);
     }
-
     fclose(file);
 }

@@ -2,7 +2,7 @@
 #define MAIN_H
 
 #define CHAR_ARRAY_LEN 30
-#define MAX_LEN 250
+#define MAX_LEN 1000
 
 typedef struct _Customers
 {
@@ -40,7 +40,7 @@ typedef enum {
 } OperatorField;
 
 
-void print_customer(Customers *customer);
+void print_customer(Customers *customer, int new_sock);
 
 
 #endif

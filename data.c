@@ -35,29 +35,29 @@ int compare_id(BST *root, Customers *customer)
 
 
 
-void show_bst(BST *root)
+void show_bst(BST *root, int new_sock)
 {
     if (root == NULL)
     {
         return;
     }
 
-    show_bst(root->left);
+    show_bst(root->left,new_sock);
 
-    print_customer(root->customer_pointer);
-    show_bst(root->right);
+    print_customer(root->customer_pointer,new_sock);
+    show_bst(root->right,new_sock);
 }
 
-void show_bst_in_order(BST *root)
+void show_bst_in_order(BST *root, int new_sock)
 {
     if (root == NULL)
     {
         return;
     }
 
-    show_bst_in_order(root->left);
-    print_customer(root->customer_pointer);
-    show_bst_in_order(root->right);
+    show_bst_in_order(root->left,new_sock);
+    print_customer(root->customer_pointer,new_sock);
+    show_bst_in_order(root->right,new_sock);
 }
 
 Customers *seve_data(char *line)
@@ -89,7 +89,7 @@ Customers *seve_data(char *line)
     return new;
 }
 
-int read_file_to_bst(BST *trees[], char *str )
+int read_file_to_bst(BST *trees[], char *str , int new_sock)
 {
     FILE *file = fopen(str, "r");
     char line[1000];
@@ -109,7 +109,7 @@ int read_file_to_bst(BST *trees[], char *str )
               insert_second_name_bst(&trees[SECOND_NAME], customer);
         }
     }
-    show_bst(trees[DEBT]);
+    show_bst(trees[DEBT],new_sock);
 
     fclose(file);
     return 0;

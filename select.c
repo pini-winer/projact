@@ -28,7 +28,7 @@ void remove_spaces(char *input, char *new_input)
 
 
 
-void find_first_name(BST *root, char *name, int operator_to_check)
+void find_first_name(BST *root, char *name, int operator_to_check, int new_sock)
 {
     char *name_temp;
     char first_name_temp[MAX_LEN] = {0};
@@ -50,34 +50,34 @@ void find_first_name(BST *root, char *name, int operator_to_check)
     if (operator_to_check == 0){
     if (strcmp(first_name_temp, name) == 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     }
     if (operator_to_check == 1){
     if (strcmp(first_name_temp, name) != 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     }
     if (operator_to_check == 2){
     if (strcmp(first_name_temp, name) < 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     }
     if (operator_to_check == 3){
     if (strcmp(first_name_temp, name) > 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     }
     
-    find_first_name(root->left, name, operator_to_check);
-    find_first_name(root->right, name, operator_to_check);
+    find_first_name(root->left, name, operator_to_check,  new_sock);
+    find_first_name(root->right, name, operator_to_check,  new_sock);
 }
     
 
-void find_second_name(BST *root, char *name, int operator_to_check)
+void find_second_name(BST *root, char *name, int operator_to_check, int new_sock)
 {
     char *name_temp;
     char second_name_temp[MAX_LEN] = {0};
@@ -97,32 +97,32 @@ void find_second_name(BST *root, char *name, int operator_to_check)
         
     if (operator_to_check == 0 && strcmp(second_name_temp, name) == 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
     
     if (operator_to_check == 1 && strcmp(second_name_temp, name) != 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
     if (operator_to_check == 2 && strcmp(second_name_temp, name) < 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
     
     if (operator_to_check == 3 && strcmp(second_name_temp, name) > 0)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
     
-    find_second_name(root->left, name, operator_to_check);
-    find_second_name(root->right, name, operator_to_check);
+    find_second_name(root->left, name, operator_to_check,  new_sock);
+    find_second_name(root->right, name, operator_to_check,  new_sock);
 }
     
-void find_debt(BST *root, int debt, int operator_to_check)
+void find_debt(BST *root, int debt, int operator_to_check, int new_sock)
 {
     if (root == NULL)
     {
@@ -133,27 +133,27 @@ void find_debt(BST *root, int debt, int operator_to_check)
    
     if (operator_to_check == 0 && root->customer_pointer->debt == debt)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 1 && root->customer_pointer->debt != debt)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 2 && root->customer_pointer->debt < debt)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 3 && root->customer_pointer->debt > debt)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
-    find_debt(root->left, debt, operator_to_check);
-    find_debt(root->right, debt, operator_to_check);
+    find_debt(root->left, debt, operator_to_check,new_sock);
+    find_debt(root->right, debt, operator_to_check,new_sock);
 }
 
 
-void find_id(BST *root, int id, int operator_to_check)
+void find_id(BST *root, int id, int operator_to_check,int new_sock)
 {
     if (root == NULL)
     {
@@ -164,27 +164,27 @@ void find_id(BST *root, int id, int operator_to_check)
    
     if (operator_to_check == 0 && root->customer_pointer->id == id)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 1 && root->customer_pointer->id != id)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 2 && root->customer_pointer->id < id)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 3 && root->customer_pointer->id > id)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
-    find_id(root->left, id, operator_to_check);
-    find_id(root->right, id, operator_to_check);
+    find_id(root->left, id, operator_to_check,new_sock);
+    find_id(root->right, id, operator_to_check,new_sock);
 }
 
 
-void find_phone(BST *root, int phone, int operator_to_check)
+void find_phone(BST *root, int phone, int operator_to_check, int new_sock)
 {
     if (root == NULL)
     {
@@ -195,26 +195,26 @@ void find_phone(BST *root, int phone, int operator_to_check)
    
     if (operator_to_check == 0 && root->customer_pointer->phone == phone)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 1 && root->customer_pointer->id != phone)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 2 && root->customer_pointer->id < phone)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 3 && root->customer_pointer->id > phone)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
-    find_phone(root->left, phone, operator_to_check);
-    find_phone(root->right, phone, operator_to_check);
+    find_phone(root->left, phone, operator_to_check,new_sock);
+    find_phone(root->right, phone, operator_to_check,new_sock);
 }
 
-void find_date(BST *root, int date, int operator_to_check)
+void find_date(BST *root, int date, int operator_to_check, int new_sock)
 {
     if (root == NULL)
     {
@@ -225,23 +225,23 @@ void find_date(BST *root, int date, int operator_to_check)
    
     if (operator_to_check == 0 && convert_date_to_int(root->customer_pointer->date) == date)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 1 && convert_date_to_int(root->customer_pointer->date) != date)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 2 && convert_date_to_int(root->customer_pointer->date) < date)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     if (operator_to_check == 3 && convert_date_to_int(root->customer_pointer->date) > date)
     {
-        print_customer(root->customer_pointer);
+        print_customer(root->customer_pointer,new_sock);
     }
     
-    find_phone(root->left, date, operator_to_check);
-    find_phone(root->right, date, operator_to_check);
+    find_phone(root->left, date, operator_to_check,new_sock);
+    find_phone(root->right, date, operator_to_check,new_sock);
 }
 
 
@@ -312,8 +312,9 @@ int char_to_int(char str[])
     return result;
 }
 
-int select_main(BST *trees[], char *input, char *errors)
+int select_main(BST *trees[], char *input, char *errors, int new_sock)
 {
+          char message[1036] = {0};
 
     char category[MAX_LEN] = {0};
     char sarch[MAX_LEN] = {0};
@@ -321,7 +322,7 @@ int select_main(BST *trees[], char *input, char *errors)
 
     operator= check_input(input, category, sarch, errors);
     
-    if (!category)
+    if (!*category)
     {
         char message[] = "Invalid category please try again\n";
          strcpy(errors, message);
@@ -333,10 +334,12 @@ int select_main(BST *trees[], char *input, char *errors)
     {
         return 4;
     }
-    if (!sarch)
+    if (!*sarch)
     {
-         char message[] = "Invalid sarch filed please try again\n";
-         strcpy(errors, message);
+                        
+
+         char message1[] = "Invalid sarch filed please try again\n";
+         strcpy(errors, message1);
         return 3;
     }
 
@@ -344,7 +347,6 @@ int select_main(BST *trees[], char *input, char *errors)
     char operators[] = {'=', '!', '>', '<'};
 
     int num_form_char;
-          char message[300] = {0};
     int x = 0;
     for (int i = 0; i < ARR_LEN(category_menu); i++)
     {
@@ -359,19 +361,19 @@ int select_main(BST *trees[], char *input, char *errors)
                 if (operator == operators[0])
                 {
 
-                    find_first_name(trees[FIRST_NAME], sarch, 0);
+                    find_first_name(trees[FIRST_NAME], sarch, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_first_name(trees[FIRST_NAME], sarch, 1);
+                   find_first_name(trees[FIRST_NAME], sarch, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_first_name(trees[FIRST_NAME], sarch, 2);
+                    find_first_name(trees[FIRST_NAME], sarch, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_first_name(trees[FIRST_NAME], sarch, 3);
+                    find_first_name(trees[FIRST_NAME], sarch, 3,new_sock);
                 }
 
                 x = 1;
@@ -383,19 +385,19 @@ int select_main(BST *trees[], char *input, char *errors)
                if (operator== operators[0])
                 {
 
-                    find_second_name(trees[SECOND_NAME], sarch, 0);
+                    find_second_name(trees[SECOND_NAME], sarch, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_second_name(trees[SECOND_NAME], sarch, 1);
+                   find_second_name(trees[SECOND_NAME], sarch, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_second_name(trees[SECOND_NAME], sarch, 2);
+                    find_second_name(trees[SECOND_NAME], sarch, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_second_name(trees[SECOND_NAME], sarch, 3);
+                    find_second_name(trees[SECOND_NAME], sarch, 3,new_sock);
                 }
                 x = 1;
                 break;
@@ -413,19 +415,19 @@ int select_main(BST *trees[], char *input, char *errors)
                 if (operator== operators[0])
                 {
 
-                    find_id(trees[ID], num_form_char, 0);
+                    find_id(trees[ID], num_form_char, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_id(trees[ID], num_form_char, 1);
+                   find_id(trees[ID], num_form_char, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_id(trees[ID], num_form_char, 2);
+                    find_id(trees[ID], num_form_char, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_id(trees[ID], num_form_char, 3);
+                    find_id(trees[ID], num_form_char, 3,new_sock);
                 }
 
                 x = 1;
@@ -447,19 +449,19 @@ int select_main(BST *trees[], char *input, char *errors)
                 if (operator== operators[0])
                 {
 
-                    find_debt(trees[ID], num_form_char, 0);
+                    find_debt(trees[ID], num_form_char, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_debt(trees[ID], num_form_char, 1);
+                   find_debt(trees[ID], num_form_char, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_debt(trees[ID], num_form_char, 2);
+                    find_debt(trees[ID], num_form_char, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_debt(trees[ID], num_form_char, 3);
+                    find_debt(trees[ID], num_form_char, 3,new_sock);
                 }
 
                 x = 1;
@@ -481,19 +483,19 @@ int select_main(BST *trees[], char *input, char *errors)
                 if (operator== operators[0])
                 {
 
-                    find_phone(trees[ID], num_form_char, 0);
+                    find_phone(trees[ID], num_form_char, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_phone(trees[ID], num_form_char, 1);
+                   find_phone(trees[ID], num_form_char, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_phone(trees[ID], num_form_char, 2);
+                    find_phone(trees[ID], num_form_char, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_phone(trees[ID], num_form_char, 3);
+                    find_phone(trees[ID], num_form_char, 3,new_sock);
                 }
                 x = 1;
                 break;
@@ -512,19 +514,19 @@ int select_main(BST *trees[], char *input, char *errors)
                 if (operator== operators[0])
                 {
 
-                    find_date(trees[ID], num_form_char, 0);
+                    find_date(trees[ID], num_form_char, 0,new_sock);
                 }
                 if (operator== operators[1])
                 {
-                   find_date(trees[ID], num_form_char, 1);
+                   find_date(trees[ID], num_form_char, 1,new_sock);
                 }
                 if (operator== operators[2])
                 {
-                    find_date(trees[ID], num_form_char, 2);
+                    find_date(trees[ID], num_form_char, 2,new_sock);
                 }
                 if (operator== operators[3])
                 {
-                    find_date(trees[ID], num_form_char, 3);
+                    find_date(trees[ID], num_form_char, 3,new_sock);
                 }
 
                 x = 1;
@@ -537,9 +539,10 @@ int select_main(BST *trees[], char *input, char *errors)
             break;
         }
     }
-    if (!x)
+    if (!x){
         sprintf(message, "%s it's not legal please try again\n", category);
         strcpy(errors, message);
+    }
 
     return 0;
 }
