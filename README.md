@@ -21,7 +21,7 @@ A program to manage customer information, implemented as a client-server applica
 - add.c: This file contains functions related to adding new customers to the customer database.
 
 
-![Alt text](diagram.png)
+               ![Alt text](diagram.png)
 
 
 
