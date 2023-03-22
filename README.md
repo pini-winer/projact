@@ -1,4 +1,4 @@
-# Customer Management System
+## Customer Management System
 A program to manage customer information, implemented as a client-server application. The program uses socket programming to communicate between the client and the server.
 
 # Features
@@ -19,6 +19,9 @@ A program to manage customer information, implemented as a client-server applica
 - select.c: This file contains functions related to selecting customers based on certain criteria.
 
 - add.c: This file contains functions related to adding new customers to the customer database.
+
+
+![Alt text](diagram.png)
 
 
 
