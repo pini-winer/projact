@@ -109,9 +109,12 @@ int read_file_to_bst(BST *trees[], char *str , int new_sock)
               insert_second_name_bst(&trees[SECOND_NAME], customer);
         }
     }
+    if (!new_sock)
+    {
     show_bst(trees[DEBT],new_sock);
 
     fclose(file);
+    }
     return 0;
 }
 

@@ -41,6 +41,7 @@ typedef enum {
 
 
 void print_customer(Customers *customer, int new_sock);
+void eroor_send(char *errors , int new_sock);
 
 
 #endif

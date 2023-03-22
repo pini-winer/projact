@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/socket.h>
 #include "main.h"
 #include "data.h"
 #include "trees.h"
@@ -101,7 +102,7 @@ void delete_dabt(BST **root, Customers *customer)
     }
 }
 
-int find_if_id_good(BST *root, Customers *customer, char *errors)
+int find_if_id_good(BST *root, Customers *customer, char *errors ,int new_sock)
 {
     char first_name_temp[60] = {0};
     char first_name_customer[60] = {0};
@@ -122,14 +123,18 @@ int find_if_id_good(BST *root, Customers *customer, char *errors)
         {
             char message[] = "id is in use\n";
             strcpy(errors, message);
+            
+        
+            eroor_send(errors, new_sock);
+        
             return 1;
         }
     }
     return 2;
-    return find_if_id_good(root->left, customer, errors) || find_if_id_good(root->right, customer, errors);
+    return find_if_id_good(root->left, customer, errors, new_sock) || find_if_id_good(root->right, customer, errors, new_sock);
 }
 
-int parseLine(char *input, char *first_name, char *second_name, char *id, char *phone, char *date, char *dept, char *errors)
+int parseLine(char *input, char *first_name, char *second_name, char *id, char *phone, char *date, char *dept, char *errors,int new_sock)
 {
     char *token = strtok(input, ",");
         int counter = 0;
@@ -165,6 +170,10 @@ int parseLine(char *input, char *first_name, char *second_name, char *id, char *
             char message[90] = {0};
             sprintf(message, "Error: Invalid format in:1 %s\n", token);
             strcpy(errors, message);
+            
+        
+            eroor_send(errors, new_sock);
+        
 
             return 1;
         }
@@ -179,12 +188,16 @@ int parseLine(char *input, char *first_name, char *second_name, char *id, char *
     return 0;
 }
 
-int chack_data(char *first_name, char *second_name, char *id, char *phone, char *date, char *dept, char *errors)
+int chack_data(char *first_name, char *second_name, char *id, char *phone, char *date, char *dept, char *errors ,int new_sock)
 {
     if (strlen(id) > 9 || !isdigit(id[0]))
     {
         char message[] = "ID should contain no more than 9 digits\n";
         strcpy(errors, message);
+        
+    {
+            eroor_send(errors, new_sock);
+       }
         return 1;
     }
     else
@@ -195,6 +208,10 @@ int chack_data(char *first_name, char *second_name, char *id, char *phone, char 
             {
                 char message[] = "ID should contain no more than 9 digits\n";
                 strcpy(errors, message);
+                
+         
+            eroor_send(errors, new_sock);
+         
                 return 1;
             }
         }
@@ -208,6 +225,10 @@ int chack_data(char *first_name, char *second_name, char *id, char *phone, char 
             char message[90] = {0};
             sprintf(message, "Error: Invalid format in: %s\n", first_name);
             strcpy(errors, message);
+            
+        
+            eroor_send(errors, new_sock);
+        
             return 1;
         }
     }
@@ -219,6 +240,10 @@ int chack_data(char *first_name, char *second_name, char *id, char *phone, char 
             char message[90] = {0};
             sprintf(message, "%s must to be a  letter\n" ,second_name);
             strcpy(errors, message);
+            
+        
+            eroor_send(errors, new_sock);
+        
             return 1;
         }
     }
@@ -269,14 +294,14 @@ void add_main(BST *trees[], char *input, char *errors, char *str ,int new_sock)
     char date[20] = {0};
     char dept[20] = {0};
 
-    i = parseLine(input, first_name, second_name, id, phone, date, dept, errors);
+    i = parseLine(input, first_name, second_name, id, phone, date, dept, errors, new_sock);
     if (i)
     {
         return;
     }
-    chack_data(first_name, second_name, id, phone, date, dept, errors);
+    chack_data(first_name, second_name, id, phone, date, dept, errors, new_sock);
     customer = seve_add_data(first_name, second_name, id, phone, date, dept);
-    x = find_if_id_good(trees[ID], customer, errors);
+    x = find_if_id_good(trees[ID], customer, errors, new_sock);
     if (x == 2)
     {
         fprintf(file, "%s,%s,%d,%s,%d,%f\n", customer->first_name, customer->second_name, customer->id, customer->date, customer->phone, customer->debt);

@@ -34,6 +34,11 @@ void print_customer(Customers *customer, int new_sock)
 
     send(new_sock, buffer, strlen(buffer), 0);
 }
+void eroor_send(char *errors , int new_sock)
+{
+    send(new_sock, errors, MAX_LEN, 0);
+   
+}
 
 void *conn_handler(void *args)
 {
@@ -90,38 +95,35 @@ void *conn_handler(void *args)
             switch (i)
             {
             case 0:
-                // add
+                
                 add_main(trees, input_to_sent, errors, file_name, new_sock);
                 break;
             case 1:
-                // select
                 select_main(trees, input_to_sent, errors, new_sock);
                 break;
             case 2:
-                // print
                 show_bst_in_order(trees[DEBT], new_sock);
                 break;
-            case 3:
-                // quit
-                goto exit;
-                break;
-
-            default:
-                break;
+          
             }
-            break;
+            
         }
-        if (i == ARR_LEN(menu))
-        {
-
-        sprintf(message, "%s it's not legal please try again\n", input_choise);
-        strcpy(errors, message);
-        }
+        
     }
     
-    send(new_sock, errors, strlen(errors), 0);
+   
 
 exit:
+           if (i == ARR_LEN(menu))
+        {
+        sprintf(message, "%s it's not legal please try again\n", input_choise);
+        strcpy(errors, message);
+        puts("hdhhd");
+        eroor_send(errors, new_sock);
+
+        
+        
+        }
     close(new_sock);
     return NULL;
 }

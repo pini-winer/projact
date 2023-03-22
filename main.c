@@ -21,6 +21,12 @@ void print_customer(Customers *customer ,int new_sock)
     puts("\n");
 }
 
+void eroor_send(char *errors , int new_sock)
+{
+   
+   printf("%s\n", errors); 
+}
+
 void help(const char *menu[], int len)
 {
     printf("Options: ");
@@ -139,7 +145,7 @@ int main(int argc, char *argv[])
             }
         }
          
-           printf("%s", errors); 
+          
 
                 
         if (i == ARR_LEN(menu))
